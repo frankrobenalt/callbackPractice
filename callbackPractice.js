@@ -23,9 +23,11 @@ and what you should write is the sayHi function that makes the code above work,
 // 1. Write a function called first that returns the first item of the array using a callback function
 
   // Code Here
-
-  
+function first(arr, cb) {
+  cb(arr[0]);
+}
 var names = ['Tyler', 'Cahlan', 'Ryan', 'Colt', 'Tyler', 'Blaine', 'Cahlan'];
+
 first(names, function(firstName){
   console.log('The first name in names is ' + firstName);
   return firstName;
@@ -36,7 +38,9 @@ first(names, function(firstName){
 // 2. Write a function called last which returns the last item of the array using a callback function.
 
   //Code Here
-
+var last = function (arr, cb) {
+  cb(arr[arr.length-1]);
+}
 
 
 last(names, function(lastName){
@@ -49,7 +53,9 @@ last(names, function(lastName){
 // 3. Write a function called multiply that multiplies two numbers. Invoke the callback with the result of the multiplication. 
 
   //Code Here
-
+var multiply = function (num1, num2, cb) {
+  cb(num1 * num2);
+}
 
 
 multiply(4, 3, function(answer){
@@ -63,7 +69,14 @@ multiply(4, 3, function(answer){
 // If the name does not exist, invoke the callback with false as an argument.
 
   //Code Here 
-
+var contains = function (arr, name, cb) {
+ for (var i=0;i<arr.length;i++) {
+   if (arr[i] === name) {
+     return cb(true);
+   }  
+   return cb(false);
+ } 
+}
 
 
 
@@ -81,7 +94,21 @@ contains(names, 'Colt', function(result){
 // Invoke the callback with the modified array as an argument.
 
   //Code Here
-
+var uniq = function (arr, cb) {
+    var newArr = [];
+    for (var i = 0; i<arr.length; i++) {
+      var found = false;
+        for (var j = 0; j<newArr.length; j++) {
+          if (arr[i] === newArr[j]) {
+              found = true;
+          }
+        }
+        if (found === false) {
+          newArr.push(arr[i]);
+        }
+    }
+    cb(newArr);
+}
 
 
 uniq(names, function(uniqArr){
@@ -92,7 +119,11 @@ uniq(names, function(uniqArr){
 // 6. Write a function called each that takes in an array of names. For each name in the array, invoke the callback and pass in the name and the name's index as arguments.
 
     //Code Here 
-
+var each = function (arr, cb) {
+  for (var i = 0; i<arr.length; i++) {
+    cb(arr[i],i);
+  }
+}
 
 
 each(names, function(item, indice){
@@ -106,7 +137,15 @@ each(names, function(item, indice){
 
 // Code here
 
-
+var getUserById = function (arr, idn, cb) {
+  for (var i=0; i<arr.length; i++) {
+    for (var key in arr[i]) {
+      if (arr[i][key]===idn) {
+        cb(arr[i]);
+      }
+    }
+  }
+}
 
 var users = [
   {
